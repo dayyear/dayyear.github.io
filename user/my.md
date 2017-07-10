@@ -50,3 +50,4 @@ No. H4530337
 - 印象笔记 15589559@qq.com or
 - LastPass 15589559@qq.com or1234
 - coding dayyear or
+- Jota Text Editor: dayyear or
