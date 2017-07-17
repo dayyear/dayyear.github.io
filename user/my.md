@@ -6,20 +6,19 @@ nta5265554 5265554
 - 12306  
 QQ1558 or1234  
 dayyear or1234
-- 南通汽车站网上订票
+- 南通汽车站网上订票  
 dayanan or
-- 江苏客运网上订票
+- 江苏客运网上订票  
 dayanan or
-- 支付宝 
+- 支付宝  
 1558@q 198 or!@#$
-- 淘宝
+- 淘宝  
 dayanan or!@#%
-- 京东
-dayanan or1234
-- 亚马逊
-dayyear@163.com or!@#$
-- 京东
+- 京东  
+dayanan or1234  
 7770 or1234
+- 亚马逊  
+dayyear@163.com or!@#$
 - 腾讯 1558 or1234
 - 火狐 1558@q or1234
 - 360 dayyear@g or
