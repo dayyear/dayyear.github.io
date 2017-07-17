@@ -19,7 +19,7 @@ dayanan or1234
 7770 or1234
 - 亚马逊  
 dayyear@163.com or!@#$
-- 腾讯 
+- 腾讯  
 1558 or1234
 - 火狐  
 1558@q or1234
@@ -53,7 +53,7 @@ dayyear or1234 198
 dayyear or1234 apple  
 1558@q Or@1234
 - 新浪  
-dayyear@g or1234
+dayyear@g or1234  
 1558@q or1234
 - 新华博客  
 91581226 or
