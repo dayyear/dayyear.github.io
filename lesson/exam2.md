@@ -280,8 +280,6 @@
     int[] score = marks;
     
 ### 数组元素
-    double salary = balance[9];
-    
     using System;
     
     namespace ArrayApplication {
