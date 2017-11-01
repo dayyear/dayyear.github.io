@@ -347,7 +347,7 @@
            }
         }
         
-### 类的多态-动态多态
+### 类的多态-抽象类
         using System;
 
         namespace PolymorphismApplication {
@@ -382,7 +382,7 @@
            }
         }
 
-### 类的多态-抽象类和虚方法
+### 类的多态-虚方法
         using System;
 
         namespace PolymorphismApplication {
