@@ -1,0 +1,44 @@
+==================================================
+Index             : 4
+Protocol          : TCP
+Local Address     : 192.168.253.2
+Remote Address    : 58.213.29.76
+Local Port        : 53367
+Remote Port       : 11083
+Local Host        : 
+Remote Host       : 
+Service Name      : 
+Packets           : 8
+Data Size         : 949 Bytes
+Total Size        : 1,586 Bytes
+Data Speed        : 0.4 KB/Sec
+Capture Time      : 2017/11/10 15:04:45:228
+Last Packet Time  : 2017/11/10 15:04:47:294
+Process User      : 
+Local MAC Address : 74-ac-5f-d3-d5-18
+Remote MAC Address: ae-fd-ce-c8-09-d3
+Local IP Country  : 
+Remote IP Country : 
+==================================================
+
+POST /mycrjzwfw/acceptance/submit.htm?acceptanceNO=322017110936973&org=320100000000 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+Host: www.smtsvs.com:11083
+Connection: Keep-Alive
+Accept-Encoding: gzip
+User-Agent: okhttp/3.8.0
+
+
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+Content-Type: text/html;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Fri, 10 Nov 2017 07:05:16 GMT
+
+101
+{"optime":1510297095000,"guid":"d973222c-6b7c-402c-b077-5f0bcc90ca12","message":"港澳通行证:正在制证中","result":1,"reqProgressEnquiryId":"f170d25e-e96d-4828-873d-b33756dac54d","acceptanceNO":"322017110936973","state":1,"seqId":1009877,"kddh":"A"}
+0
+
+
+
