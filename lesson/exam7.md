@@ -55,6 +55,7 @@
 
 #### try-catch  
 在此例中， try 块包含对可能导致异常的 ProcessString 方法的调用。 catch 子句包含仅在屏幕上显示消息的异常处理程序。 当从 MyMethod 内部调用 throw 语句时，系统查找 catch 语句并显示 Exception caught 消息。
+
     class TryFinallyTest
     {
     	static void ProcessString(string s)
@@ -87,6 +88,7 @@
     */
 
 此例使用了两个 catch 语句。最先出现的最特定的异常被捕获。  
+
     class ThrowTest3
     {
     	static void ProcessString(string s)
@@ -123,7 +125,7 @@
     */
 
 #### try-finally
-在此例中，有一个导致异常的无效转换语句。当运行程序时，您收到一条运行时错误信息，但 finally 子句仍继续执行并显示输出。  
+在此例中，有一个导致异常的无效转换语句。当运行程序时，您收到一条运行时错误信息，但 finally 子句仍继续执行并显示输出。
 
     public class ThrowTest
     {
