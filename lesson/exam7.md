@@ -56,6 +56,7 @@
 #### try-catch
 - 在此例中， try 块包含对可能导致异常的 ProcessString 方法的调用。 catch 子句包含仅在屏幕上显示消息的异常处理程序。 当从 MyMethod 内部调用 throw 语句时，系统查找 catch 语句并显示 Exception caught 消息。  
 
+
     class TryFinallyTest
     {
     	static void ProcessString(string s)
