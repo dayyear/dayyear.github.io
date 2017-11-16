@@ -1,5 +1,6 @@
 ### Http获取Cookies
-···using System;
+```
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -50,4 +51,5 @@ namespace ConsoleApplication1
         }//Get 
 
     }//class Web
-}//namespace···
+}//namespace
+```
