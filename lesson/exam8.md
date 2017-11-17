@@ -174,3 +174,35 @@ namespace ConsoleApplication1
     }//class Web
 }//namespace
 ```
+
+### 获取另一个窗口信息
+```
+using System;
+using System.Runtime.InteropServices;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+
+    class Program
+    {
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, [Out] StringBuilder lParam);
+
+        static void Main(string[] args)
+        {
+            var a = FindWindowEx(IntPtr.Zero, IntPtr.Zero, null, "Form1");
+            var b = FindWindowEx(a, IntPtr.Zero, "WindowsForms10.EDIT.app.0.2bf8098_r16_ad1", null);
+            var sb = new StringBuilder(100);
+            SendMessage(b, 0xD, (IntPtr)sb.Capacity, sb);
+            Console.WriteLine(b);
+            Console.WriteLine(sb);
+        }
+    }
+
+}//namespace
+```
