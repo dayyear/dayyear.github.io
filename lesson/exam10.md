@@ -10,26 +10,25 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            ThreadPoolTest();
             OriginThreadTest();
+            ThreadPoolTest();
         }//Main
 
         static void OriginThreadTest()
         {
             var t1 = DateTime.Now;
-            var threads = new List<Thread>();
+            var exits = new ManualResetEvent[5];
             for (var count = 0; count < 10000; count++)
             {
-                threads.Clear();
                 Alpha.done = false;
                 for (var i = 0; i < 5; i++)
                 {
-                    var alpha = new Alpha();
+                    exits[i] = new ManualResetEvent(false);
+                    var alpha = new Alpha(exits[i]);
                     var thread = new Thread(alpha.Beta);
-                    threads.Add(thread);
                     thread.Start(i);
                 }
-                threads.ForEach(thread => thread.Join());
+                WaitHandle.WaitAll(exits);
             }
             var t2 = DateTime.Now;
             Console.WriteLine("原始线程测试，耗时[{0}]", t2.Subtract(t1));
@@ -61,16 +60,9 @@ namespace ConsoleApplication1
         public static bool done;
         private ManualResetEvent exit;
 
-        public Alpha()
-        {
-            exit = new ManualResetEvent(false);
-            exit.Reset();
-        }//Alpha
-
         public Alpha(ManualResetEvent exit)
         {
             this.exit = exit;
-            this.exit.Reset();
         }//Alpha
 
         public void Beta(object parameter)

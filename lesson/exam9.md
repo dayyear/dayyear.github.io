@@ -93,3 +93,61 @@ namespace ConsoleApplication1
     }// class Alpha
 }// namespace
 ```
+
+### bug修复
+```
+using System;
+using System.Collections.Generic;
+using System.Threading;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var threads = new List<Thread>();
+            while (true)
+            {
+                threads.Clear();
+                Alpha.done = false;
+                for (var i = 0; i < 5; i++)
+                {
+                    var alpha = new Alpha();
+                    var thread = new Thread(alpha.Beta);
+                    threads.Add(thread);
+                    thread.Start(i);
+                }
+                threads.ForEach(thread => thread.Join());
+                Thread.Sleep(10000);
+            }
+        }//Main
+    }// class Program
+
+    class Alpha
+    {
+        public static bool done;
+        public void Beta(object parameter)
+        {
+            while (!done)
+            {
+                var now = DateTime.Now;
+                Console.WriteLine("[{1}] Alpha.Beta is running with parameter {0}.", parameter, now.ToString("HH:mm:ss"));
+                if (now.Second >= 0 && now.Second <= 5)
+                {
+                    using (var mtx = new Mutex(false, "Buy"))
+                    {
+                        if (mtx.WaitOne(0, false) && !done)
+                        {
+                            Console.WriteLine("[{1}] Buy with parameter {0}", parameter, now.ToString("HH:mm:ss"));
+                            done = true;
+                            mtx.ReleaseMutex();
+                        }
+                    }//mtx
+                }
+                Thread.Sleep(1000);
+            }
+        }//Beta
+    }// class Alpha
+}// namespace
+```
