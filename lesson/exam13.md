@@ -1,5 +1,6 @@
-### (1)
-#### c++读取本地记事本web.txt
+### (1)  
+#### c++读取本地记事本web.txt  
+
 ```
 #include <iostream>
 #include <string>
@@ -16,7 +17,8 @@ int main()
 }
 ```
 
-#### 用json方法，获得第一个股票华虹电子和最后一个股票深发展A的几处信息（confer_no，prod_code，entrust_amount）
+#### 用json方法，获得第一个股票华虹电子和最后一个股票深发展A的几处信息（confer_no，prod_code，entrust_amount）  
+
 ```
 #include <iostream>
 #include <fstream>
@@ -54,6 +56,7 @@ int main()
 
 ### (2) c++一些常用代码整理
 #### 保存信息到本地记事本
+
 ```
 #include <iostream>
 #include <string>
@@ -71,6 +74,7 @@ int main()
 ```
 
 #### 计时器，每5秒显示helloword
+
 ```
 #include <iostream>
 #include <boost/thread.hpp>
@@ -141,11 +145,13 @@ int main()
 ```
 
 #### 退出控制台
+
 ```
 exit(1);
 ```
 
 #### 调用识别验证码程序 sb.exe案例
+
 ```
 #include <iostream>
 #include <fstream>
@@ -171,9 +177,11 @@ int main()
 ```
 
 ### (3) 广发证券自动登录  
+
 http://hippo.gf.com.cn/  左上角登录--交易登录，用户名 1502006409988 密码 2986938 ，测试自动登录  
 **可在服务器做转发**  
-- 服务器代码 WebService.asmx
+- 服务器代码 WebService.asmx  
+
 ```
 <%@ WebService Language="C#" Class="WebService" %>
 
@@ -211,12 +219,14 @@ public class Person
 }
 ```
 
-- 生成客户端类文件WebService.cs
+- 生成客户端类文件WebService.cs  
+
 ```
 wsdl http://127.0.0.1/web/WebService.asmx?WSDL /out:WebService.cs
 ```
 
-- 客户端代码
+- 客户端代码  
+
 ```
 using System;
 
@@ -240,6 +250,7 @@ namespace ConsoleApplication1
 ```
 
 ### 字符串的拆分
+
 ```
 #include <iostream>
 #include <vector>
