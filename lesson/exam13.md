@@ -238,3 +238,21 @@ namespace ConsoleApplication1
     }
 }
 ```
+
+### 字符串的拆分
+```
+#include <iostream>
+#include <vector>
+#include <boost/algorithm/string.hpp>
+#include <boost/foreach.hpp>
+using namespace boost;
+int main()
+{
+	std::string str("aa@bb@cc");
+	std::vector<std::string> split_vector;
+	split(split_vector, str, is_any_of("@"));
+	BOOST_FOREACH(const std::string &item, split_vector)
+		std::cout << item << std::endl;
+	return 0;
+}
+```
