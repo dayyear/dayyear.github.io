@@ -195,6 +195,7 @@
        closesocket(sock);
    
        WSACleanup();
+       getchar();
        return 0;
    }
    ```
@@ -228,59 +229,137 @@
 
 ## string
 ### encoding convert
-> conv_between.cpp
+1. 编写测试程序
 
-```c++
-#include <cstring>  // strlen()
-#include <sstream>
-#include <iostream>
-#include <iconv.h>
+   > conv_between.cpp
 
-#define BUFFER_SIZE 1024
+   ```c++
+   #include <cstring>  // strlen()
+   #include <sstream>
+   #include <iostream>
+   #include <iconv.h>
+   
+   #define BUFFER_SIZE 1024
+   
+   ///
+   /// Convert a \a text to \a to_encoding from \a from_encoding
+   ///
+   std::string conv_between(const char* text, const std::string &to_encoding, const std::string &from_encoding) {
+       /* iconv_open */
+       iconv_t cd = iconv_open(to_encoding.c_str(), from_encoding.c_str());
+       if (cd == (iconv_t) -1) {
+           perror("iconv_open");
+           throw std::runtime_error("iconv_open");
+       }
+       /* buffer */
+       char buffer[BUFFER_SIZE];
+       /* four parameters for iconv */
+       char* inbuf = (char*) text;
+       size_t inbytesleft = strlen(text);
+       char *outbuf;
+       size_t outbytesleft;
+   
+       /* If all input from the input buffer is successfully converted and stored in the output buffer, the
+        * function returns the number of non-reversible conversions performed. In all other cases the
+        * return value is (size_t) -1 and errno is set appropriately. In such cases the value pointed to by
+        * inbytesleft is nonzero.
+        * - E2BIG The conversion stopped because it ran out of space in the output buffer. */
+       std::ostringstream oss;
+       while (inbytesleft) {
+           outbuf = buffer;
+           outbytesleft = BUFFER_SIZE;
+           if (iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft) == (size_t) -1 && errno != E2BIG) {
+               iconv_close(cd);
+               perror("iconv");
+               throw std::runtime_error("iconv");
+           }
+           oss.write(buffer, BUFFER_SIZE - outbytesleft);
+       }
+       /* iconv_close */
+       iconv_close(cd);
+       return oss.str();
+   }
+   
+   int main() {
+       std::cout << conv_between("GBK \xB5\xE7\xCA\xD3\xBB\xFA", "utf-8", "gbk") << "\n";
+       std::cout << conv_between("UTF-8 \xE7\x94\xB5\xE8\xA7\x86\xE6\x9C\xBA", "GBK", "UTF-8") << "\n";
+       getchar();
+       return 0;
+   }
+   ```
 
-///
-/// Convert a \a text to \a to_encoding from \a from_encoding
-///
-std::string conv_between(const char* text, const std::string &to_encoding, const std::string &from_encoding) {
-    /* iconv_open */
-    iconv_t cd = iconv_open(to_encoding.c_str(), from_encoding.c_str());
-    if (cd == (iconv_t) -1) {
-        perror("iconv_open");
-        throw std::runtime_error("iconv_open");
-    }
-    /* buffer */
-    char buffer[BUFFER_SIZE];
-    /* four parameters for iconv */
-    char* inbuf = (char*) text;
-    size_t inbytesleft = strlen(text);
-    char *outbuf;
-    size_t outbytesleft;
+1. 编译、链接
+   ```bash
+   g++ -std=c++11 -O3 -Wall -c -fmessage-length=0 -o conv_between.o conv_between.cpp 
+g++ -o conv_between.exe conv_between.o -liconv
+pause
+   ```
 
-    /* If all input from the input buffer is successfully converted and stored in the output buffer, the
-     * function returns the number of non-reversible conversions performed. In all other cases the
-     * return value is (size_t) -1 and errno is set appropriately. In such cases the value pointed to by
-     * inbytesleft is nonzero.
-     * - E2BIG The conversion stopped because it ran out of space in the output buffer. */
-    std::ostringstream oss;
-    while (inbytesleft) {
-        outbuf = buffer;
-        outbytesleft = BUFFER_SIZE;
-        if (iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft) == (size_t) -1 && errno != E2BIG) {
-            iconv_close(cd);
-            perror("iconv");
-            throw std::runtime_error("iconv");
-        }
-        oss.write(buffer, BUFFER_SIZE - outbytesleft);
-    }
-    /* iconv_close */
-    iconv_close(cd);
-    return oss.str();
-}
+### json
+1. 到页面`https://github.com/nlohmann/json/releases`下载`json.hpp`
 
-int main() {
-    std::cout << conv_between("GBK \xB5\xE7\xCA\xD3\xBB\xFA", "utf-8", "gbk") << "\n";
-    std::cout << conv_between("UTF-8 \xE7\x94\xB5\xE8\xA7\x86\xE6\x9C\xBA", "GBK", "UTF-8") << "\n";
-    return 0;
-}
-```
+1. 编写测试程序
 
+   > json_test.cpp
+
+   ```c++
+   #include <iostream>
+   #include <string>
+   #include "json.hpp"
+   
+   int main() {
+       // create object from string literal
+       nlohmann::json j = "{ \"happy\": true, \"pi\": 3.141 }"_json;
+   
+       // or even nicer with a raw string literal
+       auto j2 = R"(
+         {
+           "happy": true,
+           "pi": 3.141
+         }
+       )"_json;
+   
+       // parse explicitly
+       auto j3 = nlohmann::json::parse("{ \"happy\": true, \"pi\": 3.141 }");
+   
+       // explicit conversion to string
+       std::string s = j.dump();    // {\"happy\":true,\"pi\":3.141}
+   
+       // serialization with pretty printing
+       // pass in the amount of spaces to indent
+       std::cout << j.dump(4) << std::endl;
+       // {
+       //     "happy": true,
+       //     "pi": 3.141
+       // }
+   
+       // store a string in a JSON value
+       nlohmann::json j_string = "this is a string";
+   
+       // retrieve the string value (implicit JSON to std::string conversion)
+       std::string cpp_string = j_string;
+       // retrieve the string value (explicit JSON to std::string conversion)
+       auto cpp_string2 = j_string.get<std::string>();
+       // retrieve the string value (alternative explicit JSON to std::string conversion)
+       std::string cpp_string3;
+       j_string.get_to(cpp_string3);
+   
+       // retrieve the serialized value (explicit JSON serialization)
+       std::string serialized_string = j_string.dump();
+   
+       // output of original string
+       std::cout << cpp_string << " == " << cpp_string2 << " == " << cpp_string3 << " == " << j_string.get<std::string>() << '\n';
+       // output of serialized value
+       std::cout << j_string << " == " << serialized_string << std::endl;
+       
+       getchar();
+       return 0;
+   }
+   ```
+
+1. 编译、链接
+   ```bash
+   g++ -std=c++11 -O3 -Wall -c -fmessage-length=0 -o json_test.o json_test.cpp 
+   g++ -o json_test.exe json_test.o
+   pause
+   ```
