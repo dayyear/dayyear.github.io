@@ -291,8 +291,8 @@
 1. 编译、链接
    ```bash
    g++ -std=c++11 -O3 -Wall -c -fmessage-length=0 -o conv_between.o conv_between.cpp 
-g++ -o conv_between.exe conv_between.o -liconv
-pause
+   g++ -o conv_between.exe conv_between.o -liconv
+   pause
    ```
 
 ### json
