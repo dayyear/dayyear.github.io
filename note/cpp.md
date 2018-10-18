@@ -59,7 +59,7 @@
 
 1. [点击下载](https://curl.haxx.se/download/curl-7.61.1.zip)至`E:\CPP\down\curl-7.61.1.zip`，并解压至`E:\CPP\library\curl-7.61.1\`
 
-1. [点击下载](https://bintray.com/vszakats/generic/download_file?file_path=openssl-1.1.1-win32-mingw.zip)至`E:\CPP\down\openssl-1.1.1_6-win32-mingw.zip`，并解压至`E:\CPP\library\openssl-1.1.1\`
+1. [点击下载](https://bintray.com/vszakats/generic/download_file?file_path=openssl-1.1.1-win32-mingw.zip)至`E:\CPP\down\openssl-1.1.1_6-win32-mingw.zip`，并解压至`E:\CPP\library\openssl-1.1.1\`，参考`https://github.com/curl/curl-for-win`和`https://curl.haxx.se/windows/`
 
 1. 设置环境变量，`set OPENSSL_PATH=E:/CPP/library/openssl-1.1.1`
 
