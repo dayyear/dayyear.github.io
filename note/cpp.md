@@ -446,6 +446,51 @@
    pause
    ```
 
+### format
+
+1. 编写测试程序
+   > format_test.cpp
+   
+   ```c++
+   #include <vector>
+   #include <cstdio>
+   #include <cstdarg>
+   #include <ctime>
+   
+   void debug_log(const char *fmt, ...) {
+       std::time_t t = std::time(nullptr);
+       char time_buf[100];
+       std::strftime(time_buf, sizeof time_buf, "%Y-%m-%d %H:%M:%S", std::gmtime(&t));
+       va_list args1;
+       va_start(args1, fmt);
+       va_list args2;
+       va_copy(args2, args1);
+       std::vector<char> buf(1 + std::vsnprintf(nullptr, 0, fmt, args1));
+       va_end(args1);
+       std::vsnprintf(buf.data(), buf.size(), fmt, args2);
+       va_end(args2);
+       std::printf("%s [debug]: %s\n", time_buf, buf.data());
+   }
+   
+   int main() {
+       debug_log("Logging, %d, %d, %d", 1, 2, 3);
+   }
+   ```
+   
+1. 编译、链接
+   
+   ```bash
+   g++ -std=c++11 -O3 -Wall -c -fmessage-length=0 -o format_test.o format_test.cpp 
+   g++ -o format_test.exe format_test.o
+   pause
+   ```
+
+1. 到页面`https://github.com/ReneNyffenegger/cpp-base64`下载`base64.cpp`和`base64.h`
+1. 编写测试程序
+   > base64_test.cpp
+   
+   ```c++
+   ```
 ## shell
 
 1. 编写测试程序
