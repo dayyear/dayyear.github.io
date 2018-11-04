@@ -485,12 +485,6 @@
    pause
    ```
 
-1. 到页面`https://github.com/ReneNyffenegger/cpp-base64`下载`base64.cpp`和`base64.h`
-1. 编写测试程序
-   > base64_test.cpp
-   
-   ```c++
-   ```
 ## shell
 
 1. 编写测试程序
