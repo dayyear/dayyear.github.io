@@ -305,7 +305,7 @@
    ```c++
    #include <iostream>
    #include <string>
-   #include "json.hpp"
+   #include <nlohmann/json.hpp>
    
    int main() {
        // create object from string literal
@@ -343,15 +343,21 @@
        // retrieve the string value (alternative explicit JSON to std::string conversion)
        std::string cpp_string3;
        j_string.get_to(cpp_string3);
+       // get_ptr
+       auto cpp_string4 = j_string.get_ptr<std::string *>();
+       auto cpp_string5 = j_string.get_ptr<nlohmann::json::string_t *>();
+       // get_ref
+       auto cpp_string6 = j_string.get_ref<std::string &>();
+       auto cpp_string7 = j_string.get_ref<nlohmann::json::string_t &>();
    
        // retrieve the serialized value (explicit JSON serialization)
        std::string serialized_string = j_string.dump();
    
        // output of original string
-       std::cout << cpp_string << " == " << cpp_string2 << " == " << cpp_string3 << " == " << j_string.get<std::string>() << '\n';
+       std::cout << cpp_string << " == " << cpp_string2 << " == " << cpp_string3 << " == " << *cpp_string4 << " == " << *cpp_string5 << " == " << cpp_string6 << " == " << cpp_string7 << '\n';
        // output of serialized value
        std::cout << j_string << " == " << serialized_string << std::endl;
-       
+   
        getchar();
        return 0;
    }
@@ -359,7 +365,7 @@
 
 1. 编译、链接
    ```bash
-   g++ -std=c++11 -O3 -Wall -c -fmessage-length=0 -o json_test.o json_test.cpp 
+   g++ -std=c++11 -IE:\\CPP\\library\\json-3.3.0\\include -O3 -Wall -c -fmessage-length=0 -o json_test.o json_test.cpp 
    g++ -o json_test.exe json_test.o
    pause
    ```
