@@ -231,7 +231,7 @@
    void debug_log(const char *fmt, ...) {
        std::time_t t = std::time(nullptr);
        char time_buf[100];
-       std::strftime(time_buf, sizeof time_buf, "%Y-%m-%d %H:%M:%S", std::gmtime(&t));
+       std::strftime(time_buf, sizeof time_buf, "%Y-%m-%d %H:%M:%S", std::localtime(&t));
        va_list args1;
        va_start(args1, fmt);
        va_list args2;
