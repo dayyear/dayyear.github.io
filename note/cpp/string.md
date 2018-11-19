@@ -1,5 +1,8 @@
 ## string
 ### encoding convert
+
+1. 到页面`https://sourceforge.net/projects/gnuwin32/files/libiconv/`下载`libiconv-1.9.2-1.exe`，并安装至`E:\CPP\library\libiconv-1.9.2-1`
+
 1. 编写测试程序
 
    > conv_between.cpp
@@ -25,7 +28,7 @@
        /* buffer */
        char buffer[BUFFER_SIZE];
        /* four parameters for iconv */
-       char* inbuf = (char*) text;
+       const char* inbuf = text;
        size_t inbytesleft = strlen(text);
        char *outbuf;
        size_t outbytesleft;
@@ -61,8 +64,8 @@
 
 1. 编译、链接
    ```bash
-   g++ -std=c++11 -O3 -Wall -c -fmessage-length=0 -o conv_between.o conv_between.cpp 
-   g++ -o conv_between.exe conv_between.o -liconv
+   g++ -std=c++11 -IE:\CPP\library\libiconv-1.9.2-1\include -O3 -Wall -c -fmessage-length=0 -o conv_between.o conv_between.cpp 
+   g++ -o conv_between.exe conv_between.o -LE:\CPP\library\libiconv-1.9.2-1\lib -liconv
    pause
    ```
 
@@ -148,6 +151,7 @@
 ### base64
 
 1. 到页面`https://github.com/ReneNyffenegger/cpp-base64`下载`base64.cpp`和`base64.h`
+
 1. 编写测试程序
    > base64_test.cpp
    
