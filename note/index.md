@@ -9,3 +9,5 @@
 1. [string](cpp/string.md)
 
 1. [shell](cpp/shell.md)
+
+1. [sqlite](cpp/sqlite.md)
