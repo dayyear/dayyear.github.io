@@ -13,12 +13,11 @@
    #include <iostream>
    #include <iconv.h>
    
-   #define BUFFER_SIZE 1024
-   
    ///
    /// Convert a \a text to \a to_encoding from \a from_encoding
    ///
    std::string conv_between(const char* text, const std::string &to_encoding, const std::string &from_encoding) {
+       const int BUFFER_SIZE = 1024;
        /* iconv_open */
        iconv_t cd = iconv_open(to_encoding.c_str(), from_encoding.c_str());
        if (cd == (iconv_t) -1) {
@@ -42,12 +41,23 @@
        while (inbytesleft) {
            outbuf = buffer;
            outbytesleft = BUFFER_SIZE;
-           if (iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft) == (size_t) -1 && errno != E2BIG) {
+           size_t r = iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+           if (r != (size_t) -1)
+               oss.write(buffer, BUFFER_SIZE - outbytesleft);
+           else if (errno == E2BIG)
+               oss.write(buffer, BUFFER_SIZE - outbytesleft);
+           else if (errno == EILSEQ) {
+               oss.write(buffer, BUFFER_SIZE - outbytesleft);
+               ++inbuf;
+               --inbytesleft;
+           } else if (errno == EINVAL) {
+               oss.write(buffer, BUFFER_SIZE - outbytesleft);
+               break;
+           } else {
                iconv_close(cd);
                perror("iconv");
                throw std::runtime_error("iconv");
            }
-           oss.write(buffer, BUFFER_SIZE - outbytesleft);
        }
        /* iconv_close */
        iconv_close(cd);
