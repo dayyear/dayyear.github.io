@@ -74,12 +74,64 @@
 
 1. 编译、链接
    ```bash
+   /* 静态链接 */
+   g++ -std=c++11 -IE:\CPP\library\libiconv-1.9.2-1\include -O3 -Wall -c -fmessage-length=0 -o conv_between.o conv_between.cpp -DLIBICONV_STATIC
+   g++ -o conv_between.exe conv_between.o -LE:\CPP\library\libiconv-1.9.2-1\lib -liconv -static
+   pause
+   ```
+   ```bash
+   /* 动态链接(运行时需libiconv2.dll，推荐) */
    g++ -std=c++11 -IE:\CPP\library\libiconv-1.9.2-1\include -O3 -Wall -c -fmessage-length=0 -o conv_between.o conv_between.cpp 
    g++ -o conv_between.exe conv_between.o -LE:\CPP\library\libiconv-1.9.2-1\lib -liconv
    pause
    ```
+### jsoncpp
+1. 到页面`https://github.com/open-source-parsers/jsoncpp/releases`下载`jsoncpp-1.8.4.zip`，并解压至`E:\cpp\library\jsoncpp-1.8.4`
 
-### json
+1. 安装`meson`
+
+1. 在目录`E:\cpp\library\jsoncpp-1.8.4`下，分别生成动态链接库和静态链接库
+
+   ```bash
+   meson --buildtype release --default-library shared . release-shared
+   ninja -v -C release-shared
+   meson --buildtype release --default-library static . release-static
+   ninja -v -C release-static
+   ```
+   
+1. 编写测试程序
+
+   > jsoncpp_test.cpp
+   
+   ```cpp
+   #include <iostream>
+   #include <sstream>
+   #include <json/json.h>
+   
+   int main() {
+       Json::Value root;
+       std::istringstream("{\"name\" : \"Mike\"}") >> root;
+       std::cout << root;
+	   getchar();
+       return 0;
+   }
+   ```
+
+1. 编译、链接
+   ```bash
+   /* 静态链接 */
+   g++ -std=c++11 -IE:\\CPP\\library\\jsoncpp-1.8.4\\include -O3 -Wall -c -fmessage-length=0 -o jsoncpp_test.o jsoncpp_test.cpp 
+   g++ -o jsoncpp_test.exe jsoncpp_test.o -LE:\\CPP\\library\\jsoncpp-1.8.4\\release-static -ljsoncpp -static
+   pause
+   ```
+   ```bash
+   /* 动态链接(运行时需libjsoncpp-20.dll，推荐) */
+   g++ -std=c++11 -IE:\\CPP\\library\\jsoncpp-1.8.4\\include -O3 -Wall -c -fmessage-length=0 -o jsoncpp_test.o jsoncpp_test.cpp 
+   g++ -o jsoncpp_test.exe jsoncpp_test.o -LE:\\CPP\\library\\jsoncpp-1.8.4\\release-shared -ljsoncpp
+   pause
+   ```
+
+### JSON for Modern C++
 1. 到页面`https://github.com/nlohmann/json/releases`下载`json.hpp`
 
 1. 编写测试程序
