@@ -90,6 +90,8 @@ dayyear or12#$
 dayyear or1234
 - GitHub  
 dayyear or@311
+- huggingface.co
+dayyear@gmail.com Or@060311
 - 红黑联盟  
 dayyear or
 - 吾爱破解  
